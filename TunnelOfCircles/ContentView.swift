@@ -16,25 +16,30 @@ struct ContentView: View {
     let diameterChange = 70.0
     
     var body: some View {
-        VStack {
-            VStack {
-                ZStack {
-                    ForEach(0..<4) { index in
-                        Circle()
-                            .stroke(lineWidth: 30)
-                            .foregroundStyle(colors[index % 2])
-                            .frame(height: mindiameter + diameterChange * Double(index))
-                            .padding3D(.back, depth)
-                    }
+        VStack(spacing: 40) {
+            Text("Tunnel of Circles")
+                .font(.largeTitle)
+                .padding()
+            
+            ZStack {
+                ForEach(0..<4) { index in
+                    Circle()
+                        .stroke(lineWidth: 30)
+                        .foregroundStyle(colors[index % 2])
+                        .frame(height: mindiameter + diameterChange * Double(index))
+                        .padding3D(.back, depth)
                 }
             }
+            .padding(.bottom, 30)
+            
             Grid {
-                Grid {
+                GridRow {
                     Text("Depth")
                     Slider(value: $depth, in: 0...50) {
                         Text("Depth")
                     }
                 }
+                
                 GridRow {
                     Text("Colors")
                     HStack {
@@ -45,8 +50,11 @@ struct ContentView: View {
                     .labelsHidden()
                 }
             }
+            .padding(30)
+            .background(.thickMaterial)
+            .frame(maxWidth: 320)
         }
-        .padding()
+        .frame(minHeight: 560)
     }
 }
 
